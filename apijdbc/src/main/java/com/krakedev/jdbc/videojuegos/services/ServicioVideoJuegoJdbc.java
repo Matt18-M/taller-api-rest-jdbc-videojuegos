@@ -5,63 +5,35 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.krakedev.jdbc.videojuegos.VideojuegoJdbc;
 import com.krakedev.videojuegos.entidades.VideoJuego;
 
 @Service
 public class ServicioVideoJuegoJdbc {
 
-	private ArrayList<VideoJuego> vjs = new ArrayList<VideoJuego>();
+	public VideoJuego crear(VideoJuego vj) {
+
+		return VideojuegoJdbc.insertar(vj.getCodigo(), vj.getNombre(), vj.getPlataforma(), vj.getPrecio(),
+				vj.isDisponible(), vj.getGenero());
+	}
 
 	public VideoJuego buscarPorCodigo(String codigo) {
 
-		for (VideoJuego v : vjs) {
-			if (v.getCodigo().equals(codigo)) {
-				return v;
-			}
-		}
-		return null;
-	}
-
-	public VideoJuego crear(VideoJuego vj) {
-
-		VideoJuego existente = buscarPorCodigo(vj.getCodigo());
-
-		if (existente != null) {
-			return null;
-		} else {
-			vjs.add(vj);
-			return vj;
-		}
+		return VideojuegoJdbc.buscar(codigo);
 	}
 
 	public List<VideoJuego> listar() {
-		return vjs;
+		return VideojuegoJdbc.listar();
 	}
 
 	public VideoJuego actualizar(String codigo, VideoJuego vjActualizado) {
 
-		VideoJuego vj = buscarPorCodigo(codigo);
-
-		if (vj != null) {
-			vj.setNombre(vjActualizado.getNombre());
-			vj.setPlataforma(vjActualizado.getPlataforma());
-			vj.setPrecio(vjActualizado.getPrecio());
-			vj.setDisponible(vjActualizado.isDisponible());
-			vj.setGenero(vjActualizado.getGenero());
-
-		}
-		return vj;
+		return VideojuegoJdbc.actualizar(codigo, vjActualizado.getNombre(), vjActualizado.getPlataforma(),
+				vjActualizado.getPrecio(), vjActualizado.isDisponible(), vjActualizado.getGenero());
 	}
 
 	public boolean eliminar(String codigo) {
 
-		VideoJuego vj = buscarPorCodigo(codigo);
-
-		if (vj != null) {
-			vjs.remove(vj);
-			return true;
-		} else {
-			return false;
-		}
+		return VideojuegoJdbc.eliminar(codigo);
 	}
 }

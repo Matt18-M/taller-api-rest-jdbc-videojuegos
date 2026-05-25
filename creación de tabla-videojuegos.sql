@@ -6,3 +6,5 @@ CREATE TABLE videojuegos(
 	disponible BOOLEAN NOT NULL,
 	genero VARCHAR (50)
 );
+
+select * from videojuegos;

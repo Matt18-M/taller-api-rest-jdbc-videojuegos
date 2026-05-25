@@ -27,7 +27,7 @@ public class VideojuegoJdbc {
 
 		try {
 			con = Conexion.getConnection();
-			String sql = "INSERT INTO videojuego(codigo,nombre,plataforma,precio,disponible,genero)"
+			String sql = "INSERT INTO videojuegos(codigo,nombre,plataforma,precio,disponible,genero)"
 					+ "VALUES (?,?,?,?,?,?)";
 
 			ps = con.prepareStatement(sql);
